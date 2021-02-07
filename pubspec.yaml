@@ -1,5 +1,8 @@
 name: dicoding_restaurant_app
 description: A new Flutter project.
+# api zomato.com
+# https://developers.zomato.com/api?lang=id
+# e0d4a9e5f5e6266f9438a38745a81c77
 
 #publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
@@ -15,6 +18,12 @@ dependencies:
   equatable: ^1.2.5
   flutter_staggered_grid_view: ^0.3.3
   google_fonts: ^1.1.0
+  intl: ^0.16.1
+  android_alarm_manager: ^0.4.5+11
+  flutter_local_notifications: ^1.4.4+4
+  rxdart: ^0.23.1
+  provider: ^4.3.3
+  http: ^0.12.2
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +38,7 @@ flutter:
     - assets/fonts/ComicNeue-Regular.ttf
     - assets/fonts/TenorSans-Regular.ttf
     - assets/meal.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
