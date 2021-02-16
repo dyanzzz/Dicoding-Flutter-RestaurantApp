@@ -1,10 +1,12 @@
+import 'package:dicoding_restaurant_app/common/utils.dart';
 import 'package:dicoding_restaurant_app/data/api/api_service.dart';
-import 'package:dicoding_restaurant_app/data/model/list_restaurant_result.dart';
-import 'package:dicoding_restaurant_app/ui/restaurant_detail_page.dart';
-import 'package:dicoding_restaurant_app/widgets/card_restaurant.dart';
+import 'package:dicoding_restaurant_app/ui/restaurant_search.dart';
+import 'package:dicoding_restaurant_app/widgets/error.dart';
+import 'package:dicoding_restaurant_app/widgets/list_restaurant.dart';
 import 'package:dicoding_restaurant_app/widgets/platform_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 class RestaurantListPage extends StatefulWidget {
   static const routeName = '/restaurant_list';
@@ -14,18 +16,12 @@ class RestaurantListPage extends StatefulWidget {
 }
 
 class _RestaurantListPageState extends State<RestaurantListPage> {
-  Future<ListRestaurantResult> _restaurant;
-
-  @override
-  void initState() {
-    _restaurant = ApiService().listRestaurants();
-    super.initState();
-  }
-
   Widget _buildList(BuildContext context) {
+    final api = Provider.of<ApiService>(context);
+
     return FutureBuilder(
-        future: _restaurant,
-        builder: (context, AsyncSnapshot<ListRestaurantResult> snapshot) {
+        future: api.listRestaurants(),
+        builder: (context, snapshot) {
           var state = snapshot.connectionState;
           if (state != ConnectionState.done) {
             return Center(
@@ -33,27 +29,10 @@ class _RestaurantListPageState extends State<RestaurantListPage> {
             );
           } else {
             if (snapshot.hasData) {
-              return GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                itemCount: snapshot.data.restaurants == null
-                    ? 0
-                    : snapshot.data.restaurants.length,
-                itemBuilder: (context, index) {
-                  var restaurant = snapshot.data.restaurants[index];
-                  return CardRestaurant(
-                    restaurant: restaurant,
-                    onPressed: () => Navigator.pushNamed(
-                        context, RestaurantDetailPage.routeName,
-                        arguments: restaurant),
-                  );
-                },
-              );
+              return ListRestaurant(restaurants: snapshot.data.restaurants);
             } else if (snapshot.hasError) {
-              return Center(
-                child: Text(snapshot.error.toString()),
-              );
+              print(" ========== " + snapshot.error.toString());
+              return ErrorConnection();
             } else {
               return Text("");
             }
@@ -64,7 +43,16 @@ class _RestaurantListPageState extends State<RestaurantListPage> {
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Restaurant MantApp'),
+        title: Text(AppConfig.AppName),
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(Icons.search, color: Colors.white),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => RestaurantSearch()));
+            },
+          ),
+        ],
       ),
       body: _buildList(context),
     );

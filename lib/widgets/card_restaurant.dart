@@ -13,11 +13,7 @@ class CardRestaurant extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onPressed();
-        //Navigator.pushNamed(context, RestaurantDetailPage.routeName,
-        //  arguments: restaurant);
-      },
+      onTap: onPressed,
       child: Card(
         elevation: 5.0,
         semanticContainer: true,

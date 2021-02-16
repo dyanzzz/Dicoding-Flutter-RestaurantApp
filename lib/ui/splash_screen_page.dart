@@ -1,6 +1,9 @@
 import 'package:dicoding_restaurant_app/ui/restaurant_list_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+
+import '../widgets/platform_widget.dart';
 
 class SplashScreenPage extends StatefulWidget {
   static const routeName = '/splash_screen';
@@ -27,8 +30,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildWidget(BuildContext context) {
     final logo = Container(
       height: 350.0,
       width: 450.0,
@@ -40,9 +42,31 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
       ),
     );
 
+    return Center(child: logo);
+  }
+
+  Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(child: logo),
+      body: _buildWidget(context),
+    );
+  }
+
+  Widget _buildIos(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text("Restaurant MantApp Ios"),
+        transitionBetweenRoutes: false,
+      ),
+      child: _buildWidget(context),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PlatformWidget(
+      androidBuilder: _buildAndroid,
+      iosBuilder: _buildIos,
     );
   }
 }
