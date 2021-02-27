@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../common/styles.dart';
 
-class ErrorConnection extends StatelessWidget {
+class DataNotFound extends StatelessWidget {
+  final IconData icon;
+  DataNotFound({@required this.icon});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -11,14 +14,14 @@ class ErrorConnection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
-            Icons.cloud_off,
+            icon,
             color: primaryColor,
-            size: 100,
+            size: 150,
           ),
           Text(
-            AppConfig.messageErrorConnection,
+            AppConfig.dataNotFound,
             style: TextStyle(
-                color: primaryColor, fontSize: 17, fontWeight: FontWeight.bold),
+                color: primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       ),

@@ -30,7 +30,7 @@ class _FormSearchState extends State<FormSearch> {
               autofocus: true,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.search),
-                hintText: AppConfig.SearchDot,
+                hintText: AppConfig.searchDot,
                 border: OutlineInputBorder(),
                 filled: true,
                 errorStyle: TextStyle(fontSize: 15),
@@ -40,7 +40,7 @@ class _FormSearchState extends State<FormSearch> {
               },
               validator: (value) {
                 if (value.isEmpty) {
-                  return AppConfig.PleaseFillFormSearch;
+                  return AppConfig.pleaseFillFormSearch;
                 }
                 return null;
               },
@@ -68,7 +68,7 @@ class _FormSearchState extends State<FormSearch> {
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Text(
-                    AppConfig.Search,
+                    AppConfig.search,
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

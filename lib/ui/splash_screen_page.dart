@@ -1,9 +1,8 @@
-import 'package:dicoding_restaurant_app/ui/restaurant_list_page.dart';
+import 'package:dicoding_restaurant_app/ui/home_page.dart';
+import 'package:dicoding_restaurant_app/widgets/platform_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import '../widgets/platform_widget.dart';
 
 class SplashScreenPage extends StatefulWidget {
   static const routeName = '/splash_screen';
@@ -16,6 +15,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   void initState() {
     super.initState();
+
     startSplashScreen();
   }
 
@@ -23,26 +23,28 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     var duration = const Duration(seconds: 5);
     return Timer(duration, () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) {
-          return RestaurantListPage();
-        }),
+        MaterialPageRoute(
+          builder: (_) {
+            return HomePage();
+          },
+        ),
       );
     });
   }
 
   Widget _buildWidget(BuildContext context) {
-    final logo = Container(
-      height: 350.0,
-      width: 450.0,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/meal.png'),
-          fit: BoxFit.cover,
+    return Center(
+      child: Container(
+        height: 350.0,
+        width: 450.0,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/meal.png'),
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );
-
-    return Center(child: logo);
   }
 
   Widget _buildAndroid(BuildContext context) {
@@ -54,10 +56,6 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   Widget _buildIos(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text("Restaurant MantApp Ios"),
-        transitionBetweenRoutes: false,
-      ),
       child: _buildWidget(context),
     );
   }
