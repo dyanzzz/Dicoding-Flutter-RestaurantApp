@@ -4,7 +4,6 @@ import 'package:dicoding_restaurant_app/common/utils.dart';
 import 'package:dicoding_restaurant_app/ui/favorites_page.dart';
 import 'package:dicoding_restaurant_app/ui/restaurant_detail_page.dart';
 import 'package:dicoding_restaurant_app/ui/restaurant_list_page.dart';
-import 'package:dicoding_restaurant_app/ui/restaurant_search.dart';
 import 'package:dicoding_restaurant_app/ui/settings_page.dart';
 import 'package:dicoding_restaurant_app/utils/background_service.dart';
 import 'package:dicoding_restaurant_app/utils/notification_helper.dart';
@@ -59,8 +58,8 @@ class _HomePageState extends State<HomePage> {
     port.listen((message) async {
       await _service.someTask();
     });
-    _notificationHelper
-        .configureSelectNotificationSubject(RestaurantDetailPage.routeName);
+    _notificationHelper.configureSelectNotificationSubject(
+        RestaurantDetailPage.routeName, context);
   }
 
   @override

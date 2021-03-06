@@ -1,3 +1,5 @@
+import 'package:dicoding_restaurant_app/common/navigation.dart';
+
 import '../common/styles.dart';
 import '../common/utils.dart';
 import '../ui/restaurant_detail_page.dart';
@@ -12,6 +14,7 @@ class App extends StatelessWidget {
       title: AppConfig.appName,
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
+      navigatorKey: navigatorKey,
       initialRoute: SplashScreenPage.routeName,
       routes: {
         SplashScreenPage.routeName: (context) => SplashScreenPage(),

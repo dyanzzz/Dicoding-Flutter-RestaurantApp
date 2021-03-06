@@ -1,3 +1,4 @@
+import 'package:dicoding_restaurant_app/common/navigation.dart';
 import 'package:dicoding_restaurant_app/provider/restaurant_provider.dart';
 import 'package:dicoding_restaurant_app/utils/result_state.dart';
 import 'package:dicoding_restaurant_app/widgets/data_not_found.dart';

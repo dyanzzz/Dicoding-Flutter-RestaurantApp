@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RestaurantSearch extends StatefulWidget {
+  static const routeName = '/restaurant_search';
+
   @override
   _RestaurantSearchState createState() => _RestaurantSearchState();
 }

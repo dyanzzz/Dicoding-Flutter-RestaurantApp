@@ -34,7 +34,7 @@ class CardRestaurant extends StatelessWidget {
                   child: Hero(
                     tag: restaurant.pictureId,
                     child: Image.network(
-                      ApiService.mediumImage + restaurant.pictureId,
+                      ApiService.smallImage + restaurant.pictureId,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -48,14 +48,14 @@ class CardRestaurant extends StatelessWidget {
                               ? IconButton(
                                   icon: Icon(Icons.favorite),
                                   color: Colors.red,
-                                  onPressed: () =>
-                                      provider.removeFavorite(restaurant.id),
+                                  onPressed: () => provider.removeFavorite(
+                                      restaurant, context),
                                 )
                               : IconButton(
                                   icon: Icon(Icons.favorite_border),
                                   color: Colors.red,
                                   onPressed: () =>
-                                      provider.addFavorite(restaurant),
+                                      provider.addFavorite(restaurant, context),
                                 ),
                         ),
                       ],

@@ -1,9 +1,11 @@
 import 'package:dicoding_restaurant_app/common/styles.dart';
+import 'package:dicoding_restaurant_app/common/utils.dart';
 import 'package:dicoding_restaurant_app/data/api/api_service.dart';
 import 'package:dicoding_restaurant_app/data/model/restaurant.dart';
 import 'package:dicoding_restaurant_app/provider/database_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_tags/flutter_tags.dart';
 import 'package:provider/provider.dart';
 
 class DetailRestaurant extends StatelessWidget {
@@ -52,7 +54,8 @@ class DetailRestaurant extends StatelessWidget {
                                 ),
                                 backgroundColor: Colors.white54,
                                 onPressed: () {
-                                  provider.removeFavorite(restaurantDetail.id);
+                                  provider.removeFavorite(
+                                      restaurantDetail, context);
                                 },
                               )
                             : FloatingActionButton(
@@ -62,7 +65,8 @@ class DetailRestaurant extends StatelessWidget {
                                 ),
                                 backgroundColor: Colors.white54,
                                 onPressed: () {
-                                  provider.addFavorite(restaurantDetail);
+                                  provider.addFavorite(
+                                      restaurantDetail, context);
                                 },
                               ),
                       ),
@@ -95,6 +99,34 @@ class DetailRestaurant extends StatelessWidget {
                                 softWrap: true,
                               ),
                             ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          child: Tags(
+                            key: Key(restaurantDetail.categories[0].name),
+                            itemCount:
+                                restaurantDetail.categories.length, // required
+                            itemBuilder: (int index) {
+                              final item = restaurantDetail.categories[index];
+
+                              return ItemTags(
+                                key: Key(index.toString()),
+                                index: index, // required
+                                title: item.name,
+                                pressEnabled: false,
+                                activeColor: Colors.blueGrey[600],
+                                textStyle: TextStyle(
+                                  fontSize: 13.0,
+                                ),
+                                combine: ItemTagsCombine.withTextBefore,
+                                icon: ItemTagsIcon(
+                                  icon: Icons.restaurant_menu,
+                                ), // OR null,
+                              );
+                            },
                           ),
                         ),
                         SizedBox(
@@ -144,7 +176,7 @@ class DetailRestaurant extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Foods Menu",
+                          AppConfig.foodsMenu,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -190,7 +222,7 @@ class DetailRestaurant extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Drinks Menu",
+                          AppConfig.drinksMenu,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -219,6 +251,58 @@ class DetailRestaurant extends StatelessWidget {
                                       ),
                                       Text(
                                         "IDR 10.000",
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppConfig.customerReviews,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.grey,
+                        ),
+                        SizedBox(
+                          height: 200.0,
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: restaurantDetail.customerReviews.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Card(
+                                child: Padding(
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        restaurantDetail
+                                            .customerReviews[index].name,
+                                      ),
+                                      Text(
+                                        restaurantDetail
+                                            .customerReviews[index].date,
+                                      ),
+                                      Text(
+                                        "Review: " +
+                                            restaurantDetail
+                                                .customerReviews[index].review,
                                       ),
                                     ],
                                   ),

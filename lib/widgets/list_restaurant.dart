@@ -32,9 +32,9 @@ class _ListRestaurantState extends State<ListRestaurant> {
           onPressed: () {
             Provider.of<RestaurantProvider>(context, listen: false)
                 .getRestaurantsById(restaurant.id);
-            //Navigation.intentWithData(RestaurantDetailPage.routeName, restaurant);
-            Navigator.pushNamed(context, RestaurantDetailPage.routeName,
-                arguments: restaurant);
+
+            Navigation.intentWithData(
+                RestaurantDetailPage.routeName, restaurant);
           },
         );
       },

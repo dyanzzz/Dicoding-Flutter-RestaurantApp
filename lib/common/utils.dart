@@ -12,6 +12,10 @@ class AppConfig {
   static const String restaurant = "Restaurant";
   static const String favorite = "Favorite";
   static const String setting = "Setting";
+  static const String foodsMenu = "Foods Menu";
+  static const String drinksMenu = "Drinks Menu";
+  static const String customerReviews = "Customer Reviews";
+  static const String review = "Review";
 
   static String baseUrl = DotEnv().env['BASE_URL'];
   static String apiKey = DotEnv().env['API_KEY'];

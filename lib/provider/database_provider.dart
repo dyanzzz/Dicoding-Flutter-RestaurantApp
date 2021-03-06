@@ -2,6 +2,8 @@ import 'package:dicoding_restaurant_app/data/db/database_helper.dart';
 import 'package:dicoding_restaurant_app/data/model/restaurant.dart';
 import 'package:dicoding_restaurant_app/utils/result_state.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 class DatabaseProvider extends ChangeNotifier {
   final DatabaseHelper databaseHelper;
@@ -30,9 +32,13 @@ class DatabaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFavorite(Restaurant restaurant) async {
+  void addFavorite(Restaurant restaurant, BuildContext context) async {
     try {
       await databaseHelper.insertFavorite(restaurant);
+
+      Toast.show("I like " + restaurant.name, context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
       _getFavorite();
     } catch (e) {
       _state = ResultState.Error;
@@ -46,9 +52,13 @@ class DatabaseProvider extends ChangeNotifier {
     return favoriteRestaurant.isNotEmpty;
   }
 
-  void removeFavorite(String id) async {
+  void removeFavorite(Restaurant restaurant, BuildContext context) async {
     try {
-      await databaseHelper.removeFavorite(id);
+      await databaseHelper.removeFavorite(restaurant.id);
+
+      Toast.show("I do not like " + restaurant.name, context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
       _getFavorite();
     } catch (e) {
       _state = ResultState.Error;

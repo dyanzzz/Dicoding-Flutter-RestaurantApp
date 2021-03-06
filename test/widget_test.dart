@@ -1,32 +1,80 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
+import 'package:dicoding_restaurant_app/common/utils.dart';
+import 'package:dicoding_restaurant_app/data/api/api_service.dart';
+import 'package:dicoding_restaurant_app/data/model/list_restaurant_result.dart';
+import 'package:dicoding_restaurant_app/data/model/restaurant.dart';
+import 'package:dicoding_restaurant_app/provider/restaurant_provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
-import 'package:dicoding_restaurant_app/main.dart';
+class MockApiService extends Mock implements ApiService {}
 
-void main() {
-/*
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  await DotEnv().load();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  group('fetch restaurant', () {
+    RestaurantProvider restaurantProvider;
+    ApiService apiService;
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    setUp(() {
+      AppConfig.baseUrl = DotEnv().env['BASE_URL'];
+      apiService = MockApiService();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      when(apiService.listRestaurants()).thenAnswer(
+          (_) async => ListRestaurantResult.fromJson(restaurantResponse));
+
+      restaurantProvider = RestaurantProvider(apiService: apiService);
+    });
+
+    test("get all restaurants", () async {
+      var restaurants = restaurantProvider.result.restaurants[0];
+
+      var result = restaurants.name == Restaurant.fromJsonList(restaurant).name;
+
+      expect(result, true);
+    });
   });
-*/
 }
+
+const restaurantResponse = {
+  "error": false,
+  "message": "success",
+  "count": 20,
+  "restaurants": [
+    {
+      "id": "rqdv5juczeskfw1e867",
+      "name": "Melting Pot",
+      "description":
+          "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.",
+      "pictureId": "14",
+      "city": "Medan",
+      "rating": 4.2
+    },
+  ],
+};
+
+const detailRestaurantResponse = {
+  "error": false,
+  "message": "success",
+  "restaurant": {
+    "id": "rqdv5juczeskfw1e867",
+    "name": "Melting Pot",
+    "description":
+        "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. ...",
+    "city": "Medan",
+    "address": "Jln. Pandeglang no 19",
+    "pictureId": "14",
+    "rating": 4.2
+  }
+};
+
+const restaurant = {
+  "id": "rqdv5juczeskfw1e867",
+  "name": "Melting Pot",
+  "description":
+      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.",
+  "pictureId": "14",
+  "city": "Medan",
+  "rating": 4.2
+};
