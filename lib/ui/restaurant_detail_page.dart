@@ -8,16 +8,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class RestaurantDetailPage extends StatefulWidget {
+class RestaurantDetailPage extends StatelessWidget {
   static const routeName = '/restaurant_detail';
   final Restaurant restaurant;
   const RestaurantDetailPage({@required this.restaurant});
 
-  @override
-  _RestaurantDetailPageState createState() => _RestaurantDetailPageState();
-}
-
-class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
   Widget _buildWidget(BuildContext context) {
     return Consumer<RestaurantProvider>(
       builder: (context, provider, _) {
@@ -48,7 +43,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.restaurant.name),
+        title: Text(restaurant.name),
       ),
       body: _buildWidget(context),
     );
@@ -57,7 +52,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
   Widget _buildIos(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(widget.restaurant.name),
+        middle: Text(restaurant.name),
         transitionBetweenRoutes: false,
       ),
       child: _buildWidget(context),

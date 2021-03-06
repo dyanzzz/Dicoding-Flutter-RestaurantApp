@@ -21,7 +21,10 @@ class DataNotFound extends StatelessWidget {
           Text(
             AppConfig.dataNotFound,
             style: TextStyle(
-                color: primaryColor, fontSize: 20, fontWeight: FontWeight.bold),
+              color: primaryColor,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

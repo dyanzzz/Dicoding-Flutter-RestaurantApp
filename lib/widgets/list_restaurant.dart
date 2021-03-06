@@ -8,24 +8,19 @@ import '../ui/restaurant_detail_page.dart';
 
 import 'package:flutter/material.dart';
 
-class ListRestaurant extends StatefulWidget {
+class ListRestaurant extends StatelessWidget {
   final List<Restaurant> restaurants;
   ListRestaurant({Key key, this.restaurants}) : super(key: key);
 
-  @override
-  _ListRestaurantState createState() => _ListRestaurantState();
-}
-
-class _ListRestaurantState extends State<ListRestaurant> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-      itemCount: widget.restaurants == null ? 0 : widget.restaurants.length,
+      itemCount: restaurants == null ? 0 : restaurants.length,
       itemBuilder: (context, index) {
-        var restaurant = widget.restaurants[index];
+        var restaurant = restaurants[index];
 
         return CardRestaurant(
           restaurant: restaurant,

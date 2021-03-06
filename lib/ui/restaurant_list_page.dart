@@ -1,4 +1,3 @@
-import 'package:dicoding_restaurant_app/common/navigation.dart';
 import 'package:dicoding_restaurant_app/provider/restaurant_provider.dart';
 import 'package:dicoding_restaurant_app/utils/result_state.dart';
 import 'package:dicoding_restaurant_app/widgets/data_not_found.dart';
@@ -12,14 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-class RestaurantListPage extends StatefulWidget {
+class RestaurantListPage extends StatelessWidget {
   static const routeName = '/restaurant_list';
 
-  @override
-  _RestaurantListPageState createState() => _RestaurantListPageState();
-}
-
-class _RestaurantListPageState extends State<RestaurantListPage> {
   Widget _buildList(BuildContext context) {
     return Consumer<RestaurantProvider>(
       builder: (context, provider, _) {

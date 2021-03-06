@@ -35,19 +35,19 @@ class _HomePageState extends State<HomePage> {
       icon: Icon(
         Platform.isIOS ? CupertinoIcons.home : Icons.restaurant,
       ),
-      title: Text(AppConfig.restaurant),
+      label: AppConfig.restaurant,
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Platform.isIOS ? CupertinoIcons.heart_solid : Icons.favorite,
       ),
-      title: Text(AppConfig.favorite),
+      label: AppConfig.favorite,
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Platform.isIOS ? CupertinoIcons.settings : Icons.settings,
       ),
-      title: Text(AppConfig.setting),
+      label: AppConfig.setting,
     ),
   ];
 
@@ -64,8 +64,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    super.dispose();
     selectNotificationSubject.close();
+    super.dispose();
   }
 
   void _onBottomNavTapped(int index) {
